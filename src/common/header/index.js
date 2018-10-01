@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from './store/actionCreator'
-import { logout } from '../pages/login/store/actionCreator'
+import * as logins from '../pages/login/store/actionCreator'
 import { Link } from 'react-router-dom'
 import { 
 	HeaderWrap, Logo, Nav, 
@@ -48,16 +48,22 @@ class Header extends Component {
 				<Logo/>
 			</Link>
 			<Nav>
-				<NavItem className="left active">首页</NavItem>
-				<NavItem className="left" onClick={logout}>下载App</NavItem>					
-				{
-					loginflag ?
-					<NavItem className="right">退出</NavItem>:
-					<NavItem className="right">登录</NavItem>
-				}
-				<NavItem className="right">
-					<i className="iconfont">&#xe636;</i>
-				</NavItem>
+				<div className="left">
+					<NavItem className="inline active">首页</NavItem>
+					<NavItem className="inline">下载App</NavItem>
+				</div>
+				<div className="right">				
+					{
+						loginflag ?
+						<NavItem onClick={logout}>退出</NavItem>:
+						<Link to='/login'>
+							<NavItem>登录</NavItem>
+						</Link>
+					}
+					<NavItem>
+						<i className="iconfont">&#xe636;</i>
+					</NavItem>				
+				</div>	
 				<SearchGroup>					
 					<Search className={focused?'focused':''} 
 							onFocus={() => focusHandle(list)}
@@ -70,7 +76,7 @@ class Header extends Component {
 				</SearchGroup>	
 			</Nav>
 			<Addition>
-				<Button className="write" onClick={logout}>
+				<Button className="write">
 					<i className="iconfont" style={{marginRight:'6px'}}>&#xe61c;</i>写文章
 				</Button>
 				<Link to='/login'>
@@ -123,13 +129,8 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch(actions.changePageAction(page))
 		},
 		logout(){
-			dispatch(logout())
+			dispatch(logins.logout())
 		}
 	}
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Header);
-
-//暂时把登录和退出要执行的事件绑定到 注册 与 写文章 上，不知道为什么绑在登录上不起作用，
-//触发的事件也不执行
-//改用 if else的方法替代三元表达式也有一些问题。。。
-//可能版本的问题吧   有空再研究   待续。。。。

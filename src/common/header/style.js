@@ -20,13 +20,16 @@ export const Nav = styled.div`
 	margin:0 auto;
 	padding-right:150px;
 	box-sizing:border-box;
+	.left{
+		display:inline-block;
+	}
+	.right{
+		display:inline-block;
+		margin-left:460px;
+	}
 `
 export const NavItem = styled.div`
-	&.left{
-		float:left;
-	}
-	&.right{
-		float:right;
+	&.inline{
 		color:#969696;
 	}
 	&.active{
@@ -36,6 +39,8 @@ export const NavItem = styled.div`
 	color:#333;
 	line-height:56px;
 	padding:0 25px;
+	cursor:pointer;
+	display:inline-block
 `
 export const Search = styled.input.attrs({
 	placeholder:'search'
@@ -88,7 +93,9 @@ export const Button = styled.button`
 	}
 `
 export const SearchGroup = styled.div`
-	position:relative;
+	position:absolute;
+	top:0;
+	left:320px;
 	user-select:none;
 	.fdj{
 		padding:9px 15px;
@@ -105,7 +112,7 @@ export const SearchGroup = styled.div`
 export const SearchList = styled.div`{
 	position:absolute;
 	top:56px;
-	left:220px;
+	left:30px;
 	z-index:9999;
 	width:240px;
 	padding: 15px 20px;
